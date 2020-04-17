@@ -41,8 +41,7 @@ contract DevRelToken is ERC721, ERC721Metadata {
 
     function batchMint() public {
         require(!batchMinted, "batchMint already called");
-        require(owner==msg.sender, "only owner"); //comment out and uncomment line below to toggle gate on function
-        //  require(signals >= threshold, "threshold not reached");
+        require(signals >= threshold, "threshold not reached");
         for (uint i = 0; i < recipients.length; i++) {
             //mint token for recipients[i]
             _safeMint(recipients[i], tokenIdEnumerator);
