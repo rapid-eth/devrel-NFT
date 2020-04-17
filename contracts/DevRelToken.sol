@@ -27,8 +27,16 @@ contract DevRelToken is ERC721, ERC721Metadata {
             didSignal[msg.sender] = true;
             recipients.push(msg.sender);
             signals++;
-            emit SignalSent(msg.sender);
+            emit SignalSent(msg.sender, signals);
         }
+        // if (signals >= threshold) {
+        //     emit ThresholdReached();
+        // }
+    }
+
+    function adjustThreshold(uint _n) public {
+        require(owner==msg.sender, "only owner");
+        threshold = _n;
     }
 
     function batchMint() public {
@@ -43,5 +51,6 @@ contract DevRelToken is ERC721, ERC721Metadata {
         batchMinted = true;
     }
 
-    event SignalSent(address sender);
+    event SignalSent(address sender, uint count);
+    // event ThresholdReached();
 }
